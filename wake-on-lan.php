@@ -385,6 +385,40 @@ if('HOST.WAKEUP'===$ajaxOperation) {
         line-height: 1.6;
       }
 
+      .config-info {
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: 16px;
+        padding: 20px 24px;
+        box-shadow: var(--shadow-soft);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+      }
+
+      .config-title {
+        margin: 0;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .config-description {
+        margin: 0;
+        color: var(--text-secondary);
+        line-height: 1.6;
+      }
+
+      .config-example {
+        margin: 0;
+        background: #0f172a;
+        color: #f8fafc;
+        padding: 16px;
+        border-radius: 12px;
+        font-family: 'Fira Code', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+        font-size: 0.95rem;
+        overflow-x: auto;
+      }
+
       .device-grid {
         display: flex;
         flex-direction: column;
@@ -533,8 +567,24 @@ if('HOST.WAKEUP'===$ajaxOperation) {
         <h1>Wake On Lan</h1>
         <p>Tippe auf das Computer-Symbol, um den jeweiligen Rechner aufzuwecken. Die Liste zeigt nur die Kommentare aus deiner <code>config.json</code>.</p>
       </header>
+      <section class="config-info" aria-label="Information zur Konfiguration">
+        <h2 class="config-title">Format der <code>config.json</code></h2>
+        <p class="config-description">
+          Lege deine Geräte als Array von Objekten an. Jedes Objekt kann eine <code>mac</code>-Adresse, optional einen
+          <code>host</code> (Hostname oder IP), einen <code>cidr</code>-Wert für das Subnetz sowie einen <code>port</code>
+          enthalten. Mit <code>comment</code> vergibst du die sichtbare Bezeichnung in der Liste.
+        </p>
+        <pre class="config-example" aria-label="Beispiel für einen Konfigurationseintrag"><code>[
+  {
+    "mac": "AA-BB-CC-DD-EE-FF",
+    "host": "192.168.0.10",
+    "cidr": "24",
+    "port": "9",
+    "comment": "Rechner im Büro"
+  }
+]</code></pre>
+      </section>
       <section id="deviceList" class="device-grid" aria-live="polite"></section>
-      <p class="api-hint">API: <code>?aop=HOST.WAKEUP&amp;mac=MAC-ADRESSE</code></p>
     </main>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
