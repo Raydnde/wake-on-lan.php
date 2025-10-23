@@ -337,6 +337,18 @@ if('HOST.WAKEUP'===$ajaxOperation) {
         color: var(--text-primary);
       }
 
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
       .page {
         max-width: 880px;
         margin: 0 auto;
@@ -344,6 +356,13 @@ if('HOST.WAKEUP'===$ajaxOperation) {
         display: flex;
         flex-direction: column;
         gap: 32px;
+      }
+
+      .page-footer {
+        text-align: center;
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+        margin: 0 24px 40px;
       }
 
       .page-header {
@@ -519,6 +538,12 @@ if('HOST.WAKEUP'===$ajaxOperation) {
     </main>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <footer class="page-footer" aria-label="Liebevoll hergestellt Hinweis">
+      <span aria-hidden="true">&#10084;&#65039;</span>
+      <span class="visually-hidden">Herzsymbol.</span>
+      make with love in Berlin
+    </footer>
 
     <template id="device-template">
       <article class="device-card" data-status="offline">
