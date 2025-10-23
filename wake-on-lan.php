@@ -461,25 +461,12 @@ if('HOST.WAKEUP'===$ajaxOperation) {
       }
 
       .api-hint {
-        display: none;
         font-size: 0.95rem;
         color: var(--text-secondary);
         padding: 18px 22px;
         border-radius: 16px;
         border: 1px solid var(--card-border);
         background: rgba(255, 255, 255, 0.85);
-        max-width: 360px;
-        margin: 0 auto;
-      }
-
-      .api-hint.is-visible {
-        display: block;
-      }
-
-      .page-footer {
-        font-size: 0.75rem;
-        color: var(--text-secondary);
-        text-align: center;
       }
 
       .toast {
@@ -525,11 +512,10 @@ if('HOST.WAKEUP'===$ajaxOperation) {
     <main class="page">
       <header class="page-header">
         <h1>Wake On Lan</h1>
-        <p>Tippe auf das Computer-Symbol, um den jeweiligen Rechner aufzuwecken.</p>
+        <p>Tippe auf das Computer-Symbol, um den jeweiligen Rechner aufzuwecken. Die Liste zeigt nur die Kommentare aus deiner <code>config.json</code>.</p>
       </header>
       <section id="deviceList" class="device-grid" aria-live="polite"></section>
-      <p class="api-hint" aria-hidden="true">API: <code>?aop=HOST.WAKEUP&amp;mac=MAC-ADRESSE</code></p>
-      <footer class="page-footer" aria-hidden="true">made with ❤️</footer>
+      <p class="api-hint">API: <code>?aop=HOST.WAKEUP&amp;mac=MAC-ADRESSE</code></p>
     </main>
 
     <div id="toast" class="toast" role="status" aria-live="polite"></div>
@@ -557,7 +543,6 @@ if('HOST.WAKEUP'===$ajaxOperation) {
         const list = document.getElementById('deviceList');
         const template = document.getElementById('device-template');
         const toast = document.getElementById('toast');
-        const apiHint = document.querySelector('.api-hint');
         const devices = new Set();
         const statusLabels = {
           offline: 'Offline',
@@ -711,26 +696,12 @@ if('HOST.WAKEUP'===$ajaxOperation) {
             })
             .catch((error) => {
               list.innerHTML = '';
-              devices.clear();
               const empty = document.createElement('div');
               empty.className = 'empty-state';
               empty.textContent = (error.message || 'Konfiguration konnte nicht geladen werden.');
               list.appendChild(empty);
             });
         };
-
-        const toggleApiHint = () => {
-          if (!apiHint) return;
-          const isVisible = apiHint.classList.toggle('is-visible');
-          apiHint.setAttribute('aria-hidden', (!isVisible).toString());
-        };
-
-        document.addEventListener('keydown', (event) => {
-          if (!event.shiftKey || !event.key) return;
-          if (event.key.toLowerCase() !== 'a') return;
-          event.preventDefault();
-          toggleApiHint();
-        });
 
         loadConfig();
         setInterval(() => { devices.forEach((card) => updateStatus(card)); }, 15000);
